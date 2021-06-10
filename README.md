@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/sezRR/hrms-frontend/main/public/assets/readme-images/hrms-frontend.png">
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
