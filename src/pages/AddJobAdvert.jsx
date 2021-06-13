@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { useFormik } from 'formik'
+import { Formik } from 'formik'
 import { Button, TextField } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
@@ -19,6 +19,7 @@ import 'date-fns';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import * as Yup from "yup";
 
 const useStyles = makeStyles({
     sliderHeader: {
@@ -63,7 +64,7 @@ const useStyles = makeStyles({
         width: "6%",
         height: "6%",
         marginRight: "1rem",
-        marginBottom: "-0.1rem" 
+        marginBottom: "-0.1rem"
     },
     imageAlign: {
         "position": "sticky",
@@ -79,58 +80,51 @@ const useStyles = makeStyles({
         maxWidth: "30rem",
         justifyContent: "center"
     },
-    topGrid: {
-        // justifyContent: "center"
-    }
 });
 
-function valuetext(value) {
+function valueText(value) {
     return `${value}`
 }
+
+const addJobAdvertValidationSchema = Yup.object().shape({
+    firstName: Yup.string().required("testss")
+});
+
+const validate = (values) => {
+    let errors = {};
+
+    if (!values.advertDescription) {
+        errors.advertDescription = "Advert description is required";
+    }
+
+    if (!values.openPosition) {
+        errors.openPosition = "Open position is required";
+    }
+
+    if (!values.cityId) {
+        errors.cityId = "City name is required";
+    }
+
+    if (!values.jobPositionId) {
+        errors.jobPositionId = "Job position is required";
+    }
+
+    if (!values.workingPlaceId) {
+        errors.workingPlaceId = "Working place is required";
+    }
+
+    if (!values.workingTimeId) {
+        errors.workingTimeId = "Working time is required";
+    }
+
+    return errors;
+};
 
 export default function AddJobAdvert() {
 
     const [value, setValue] = React.useState([0, 0]);
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-        
-        if(newValue[0] === 0 || newValue[1] === 0){
-            if (newValue[0] === 0) {
-                newValue[0] = null
-            }
-    
-            if (newValue[1] === 0) {
-                newValue[1] = null
-            }
-        }
-        console.log(newValue)
-
-        formik.setFieldValue("minSalary", newValue[0])
-        formik.setFieldValue("maxSalary", newValue[1])
-    };
-
     const classes = useStyles();
-
-    const formik = useFormik({
-        initialValues: {
-            advertDescription: '',
-            cityId: 0,
-            createdDate: new Date(),
-            deadline: null,
-            employerId: 4,              // TO DO: local storage
-            jobPositionId: 0,
-            maxSalary: null,
-            minSalary: null,
-            openPosition: 0,
-            workingPlaceId: 0,
-            workingTimeId: 0,
-        },
-        onSubmit: values => {
-            let jobAdvertService = new JobAdvertService()
-            jobAdvertService.addJobAdvert(values)
-        },
-    });
 
     const [cities, setCities] = useState([])
     const [jobPositions, setJobPositions] = useState([])
@@ -172,135 +166,196 @@ export default function AddJobAdvert() {
         getOptionLabel: (option) => option.workingTime
     }
 
-    return (
-        <div className={classes.contentCenter}>
-            <Grid container className={classes.topGrid}>
-                <Grid item xs={7} className={classes.customGrid}>
-                    <h1><AddCircleIcon className={classes.customizeIcon} />Job Advert</h1>
-                    <form onSubmit={formik.handleSubmit}>
-                        <TextField className={classes.advertDescriptionCustomization} required id="advertDescription" name="advertDescription" onChange={formik.handleChange} label="Advert Description" placeholder="Looking for..." />
+    const initialValues = {
+        advertDescription: '',
+        cityId: 0,
+        createdDate: new Date(),
+        deadline: null,
+        employerId: 4,              // TO DO: local storage
+        jobPositionId: 0,
+        maxSalary: null,
+        minSalary: null,
+        openPosition: 0,
+        workingPlaceId: 0,
+        workingTimeId: 0,
+    }
 
-                        <br />
-                        <br />
+    const submitForm = (values) => {
+        let jobAdvertService = new JobAdvertService()
+        jobAdvertService.addJobAdvert(values)
+    }
 
-                        <TextField className={classes.openPositionCustomization} required id="openPosition" name="openPosition" type="number" onChange={formik.handleChange} label="Open Position" placeholder="1000" />
-
-                        <br />
-                        <br />
-                        <br />
-
-                        <Typography id="salarySlider" className={classes.sliderHeader} gutterBottom>
-                            Min - Max Salary (x1000)
-                        </Typography>
-                        <Slider
-                            className={classes.sliderCustomization}
-                            id="maxSalary"
-                            name="maxSalary"
-                            value={value}
-                            min={0}
-                            max={30}
-                            step={2}
-                            label="test"
-                            onChange={handleChange}
-                            valueLabelDisplay="auto"
-                            aria-labelledby="range-slider"
-                            getAriaValueText={valuetext}
-                        />
+    return (<Formik
+        initialValues={initialValues}
+        validate={validate}
+        validator={addJobAdvertValidationSchema}
+        onSubmit={submitForm}
+    >
 
 
-                        <Autocomplete
-                            {...citiesDefaultProps}
-                            className={classes.citiesAutoCompleteCustomization}
-                            id="cityId"
-                            name="cityId"
-                            blurOnSelect
-                            renderInput={(params) => (
-                                <TextField required {...params} label="City Name" margin="normal" placeholder="Istanbul" />
-                            )}
-                            onChange={(_, value) => value === null ? null : formik.setFieldValue("cityId", value.id)}
-                        />
+        {(formik) => {
+            const {
+                values,
+                handleChange,
+                handleSubmit,
+                errors,
+                touched,
+                setFieldValue,
+            } = formik;
+
+            const handleSliderChange = (event, newValue) => {
+                setValue(newValue);
+
+                // if(newValue[0] === 0 || newValue[1] === 0){
+                //     if (newValue[0] === 0) {
+                //         newValue[0] = null
+                //     }
+
+                //     if (newValue[1] === 0) {
+                //         newValue[1] = null
+                //     }
+                // } // TO DO: set null işlemini submit bölümünde yap
+                console.log(newValue)
+
+                setFieldValue("minSalary", newValue[0])
+                setFieldValue("maxSalary", newValue[1])
+            };
+
+            return (
+
+                <div className={classes.contentCenter}>
+
+                    <Grid container>
+                        <Grid item xs={7} className={classes.customGrid}>
+                            <h1><AddCircleIcon className={classes.customizeIcon} />Job Advert</h1>
 
 
-                        <Autocomplete
-                            {...jobPositionsDefaultProps}
-                            className={classes.jobPositionsAutoCompleteCustomization}
-                            id="jobPositionId"
-                            name="jobPositionId"
-                            blurOnSelect
-                            renderInput={(params) => (
-                                <TextField required {...params} label="Job Position" margin="normal" placeholder="Software Developer" />
-                            )}
-                            onChange={(_, value) => value === null ? null : formik.setFieldValue("jobPositionId", value.id)}
-                        />
+                            <form onSubmit={handleSubmit}>
+                                <TextField multiline className={classes.advertDescriptionCustomization} id="advertDescription" name="advertDescription" onChange={handleChange} label="Advert Description *" placeholder="Looking for..." error={values.advertDescription === "" && touched.advertDescription} helperText={touched.advertDescription ? errors.advertDescription : null} />
+                                <br />
+                                <br />
 
+                                <TextField className={classes.openPositionCustomization} id="openPosition" name="openPosition" type="number" onChange={handleChange} label="Open Position *" placeholder="1000" error={(values.openPosition === "" || values.openPosition === 0) && touched.openPosition} helperText={touched.openPosition ? errors.openPosition : null} />
 
-                        <Autocomplete
-                            {...workingPlacesDefaultProps}
-                            className={classes.workingPlacesAutoCompleteCustomization}
-                            id="workingPlaceId"
-                            name="workingPlaceId"
-                            blurOnSelect
-                            renderInput={(params) => (
-                                <TextField required {...params} label="Working Place" margin="normal" placeholder="At workplace" />
-                            )}
-                            onChange={(_, value) => value === null ? null : formik.setFieldValue("workingPlaceId", value.id)}
-                        />
+                                <br />
+                                <br />
+                                <br />
 
-
-                        <Autocomplete
-                            {...workingTimesDefaultProps}
-                            className={classes.workingTimesAutoCompleteCustomization}
-                            id="workingTimeId"
-                            name="workingTimeId"
-                            blurOnSelect
-                            renderInput={(params) => (
-                                <TextField required {...params} label="Working Time" margin="normal" placeholder="Full time" />
-                            )}
-                            onChange={(_, value) => value === null ? null : formik.setFieldValue("workingTimeId", value.id)}
-                        />
-
-                        <Grid container>
-                            <Button
-                                variant="contained"
-                                startIcon={<SendIcon />}
-                                type="submit"
-                                className={classes.submitCustomization}
-                            >
-                                SUBMIT
-                            </Button>
-
-                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <KeyboardDatePicker
-                                    className={classes.datePickerCustomization}
-                                    disableToolbar
-                                    variant="inline"
-                                    format="yyyy/MM/dd"
-                                    margin="normal"
-                                    id="deadline"
-                                    name="deadline"
-                                    label="Job Advert Deadline"
-                                    value={formik.values.deadline}
-                                    onChange={(date) => formik.setFieldValue("deadline", date.toISOString().split("T")[0])}
-                                    minDate={new Date()}
+                                <Typography id="salarySlider" className={classes.sliderHeader} gutterBottom>
+                                    Min - Max Salary (x1000)
+                                </Typography>
+                                <Slider
+                                    className={classes.sliderCustomization}
+                                    id="salaries"
+                                    name="salaries"
+                                    value={value}
+                                    min={0}
+                                    max={30}
+                                    step={2}
+                                    onChange={handleSliderChange}
+                                    valueLabelDisplay="auto"
+                                    aria-labelledby="range-slider"
+                                    getAriaValueText={valueText}
                                 />
-                            </MuiPickersUtilsProvider>
-                        </Grid>
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                    </form>
-                </Grid>
-                <Grid item xs={5}>
-                    <div className={classes.imageAlign}>
-                        <img className={classes.inImageAlign} src={process.env.PUBLIC_URL + '/assets/job-ad.svg'} alt="job-ad" />
-                    </div>
-                </Grid>
-            </Grid>
 
-        </div>
+
+                                <Autocomplete
+                                    {...citiesDefaultProps}
+                                    className={classes.citiesAutoCompleteCustomization}
+                                    id="cityId"
+                                    name="cityId"
+                                    blurOnSelect
+                                    renderInput={(params) => (
+                                        <TextField {...params} label="City Name *" margin="normal" placeholder="Istanbul" error={(values.cityId === "" || values.cityId === 0) && touched.cityId} helperText={touched.cityId ? errors.cityId : null} />
+                                    )}
+                                    onChange={(_, value) => value === null ? setFieldValue("cityId", 0) : setFieldValue("cityId", value.id)}
+                                />
+
+
+                                <Autocomplete
+                                    {...jobPositionsDefaultProps}
+                                    className={classes.jobPositionsAutoCompleteCustomization}
+                                    id="jobPositionId"
+                                    name="jobPositionId"
+                                    blurOnSelect
+                                    renderInput={(params) => (
+                                        <TextField {...params} label="Job Position *" margin="normal" placeholder="Software Developer" error={(values.jobPositionId === "" || values.jobPositionId === 0) && touched.jobPositionId} helperText={touched.jobPositionId ? errors.jobPositionId : null} />
+                                    )}
+                                    onChange={(_, value) => value === null ? setFieldValue("jobPositionId", 0) : setFieldValue("jobPositionId", value.id)}
+                                />
+
+
+                                <Autocomplete
+                                    {...workingPlacesDefaultProps}
+                                    className={classes.workingPlacesAutoCompleteCustomization}
+                                    id="workingPlaceId"
+                                    name="workingPlaceId"
+                                    blurOnSelect
+                                    renderInput={(params) => (
+                                        <TextField {...params} label="Working Place *" margin="normal" placeholder="At workplace" error={(values.workingPlaceId === "" || values.workingPlaceId === 0) && touched.workingPlaceId} helperText={touched.workingPlaceId ? errors.workingPlaceId : null} />
+                                    )}
+                                    onChange={(_, value) => value === null ? setFieldValue("workingPlaceId", 0) : setFieldValue("workingPlaceId", value.id)}
+                                />
+
+
+                                <Autocomplete
+                                    {...workingTimesDefaultProps}
+                                    className={classes.workingTimesAutoCompleteCustomization}
+                                    id="workingTimeId"
+                                    name="workingTimeId"
+                                    blurOnSelect
+                                    renderInput={(params) => (
+                                        <TextField {...params} label="Working Time *" margin="normal" placeholder="Full time" error={(values.workingTimeId === "" || values.workingTimeId === 0) && touched.workingTimeId} helperText={touched.workingTimeId ? errors.workingTimeId : null} />
+                                    )}
+                                    onChange={(_, value) => value === null ? setFieldValue("workingTimeId", 0) : setFieldValue("workingTimeId", value.id)}
+                                />
+
+                                <Grid container>
+                                    <Button
+                                        variant="contained"
+                                        startIcon={<SendIcon />}
+                                        type="submit"
+                                        className={classes.submitCustomization}
+                                    >
+                                        SUBMIT
+                                    </Button>
+
+                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                        <KeyboardDatePicker
+                                            className={classes.datePickerCustomization}
+                                            disableToolbar
+                                            variant="inline"
+                                            format="yyyy/MM/dd"
+                                            margin="normal"
+                                            id="deadline"
+                                            name="deadline"
+                                            label="Job Advert Deadline"
+                                            value={values.deadline}
+                                            onChange={(date) => setFieldValue("deadline", date.toISOString().split("T")[0])}
+                                            minDate={new Date()}
+                                        />
+                                    </MuiPickersUtilsProvider>
+                                </Grid>
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                            </form>
+                        </Grid>
+                        <Grid item xs={5}>
+                            <div className={classes.imageAlign}>
+                                <img className={classes.inImageAlign} src={process.env.PUBLIC_URL + '/assets/job-ad.svg'} alt="job-ad" />
+                            </div>
+                        </Grid>
+                    </Grid>
+
+                </div >
+            );
+        }}
+    </Formik>
     );
+
 }
