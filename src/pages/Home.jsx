@@ -1,40 +1,37 @@
 import React from 'react'
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Navi from '../layouts/Navi';
 
 const useStyles = makeStyles((theme) => ({
     svg: {
-        textAlign: "right",
+        textAlign: "center",
     },
 
     inSvg: {
-        width: "90%",
-        height: "90%"
+        width: "92%",
+        margin: "auto"
     },
 
     root: {
-        // backgroundImage: `url(${process.env.PUBLIC_URL + '/assets/home-background.jpg'})`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        height: 1080
+        height: 575,
     },
 
     header: {
-        marginTop: "5rem",
-        textAlign: "left",
-        fontFamily: "Fredoka One",
-        fontSize: 20,
-        color: "#2e2e2e"
+        marginTop: "7.5rem",
     },
 
     headerEmphasis: {
-        color: "#4997fc"
+        color: "#4997fc",
     },
 
     exploreButton: {
         width: "7.5rem",
-        height: "2.5rem"
+        height: "2.5rem",
     },
     search: {
         position: "relative",
@@ -75,6 +72,10 @@ const useStyles = makeStyles((theme) => ({
                 width: "20ch"
             }
         },
+    },
+    headerParagraph:{
+        fontSize:"18px",
+        textAlign: "left",
     }
 }));
 
@@ -82,12 +83,15 @@ export default function Home() {
     const classes = useStyles();
     return (
         <div className={classes.root}>
+            {/* <Navi/> */}
             <Grid container>
                 <Grid item xs={6}>
                     <div className={classes.header}>
-                        <h1>FIND YOUR DREAM <span className={classes.headerEmphasis}>JOB</span></h1>
+                        <Typography variant="h1">FIND YOUR DREAM <span className={classes.headerEmphasis}>JOB</span></Typography>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean finibus, ipsum eget mollis consequat, odio elit gravida diam, vitae semper lorem erat in ipsum. Mauris eget sodales magna, nec rutrum ante. Aliquam ultrices ex in ex tempor varius. Pellentesque imperdiet eros lacus, et elementum ipsum feugiat eu. Quisque facilisis eleifend mi sit amet rutrum. Donec condimentum erat vel finibus aliquet. Phasellus fermentum viverra vestibulum. Morbi quis molestie odio, non aliquam sapien. Curabitur sit amet felis at arcu fringilla volutpat a in turpis.</p>
+                        <Typography className={classes.headerParagraph} color="primary">
+                            Millions of jobless had a job with employer users of HRMS! Begin your job carrier with HRMS.
+                        </Typography>
                     <br />
                     <br />
                     {/* <div className={classes.noMarginLeft}>
@@ -116,9 +120,9 @@ export default function Home() {
                     </Button>
                 </Grid>
                 <Grid item xs={6}>
-                    <div className={classes.svg}>
+                    <Box className={classes.svg}>
                         <img className={classes.inSvg} src={process.env.PUBLIC_URL + '/assets/job.svg'} alt="Solidarity" />
-                    </div>
+                    </Box>
                 </Grid>
             </Grid>
 

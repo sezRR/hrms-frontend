@@ -24,7 +24,7 @@ import * as Yup from "yup";
 const useStyles = makeStyles({
     sliderHeader: {
         width: "100%",
-        color: "gray",
+        color: "lightgray",
     },
     contentCenter: {
         display: "flex",
@@ -64,11 +64,8 @@ const useStyles = makeStyles({
         width: "6%",
         height: "6%",
         marginRight: "1rem",
-        marginBottom: "-0.1rem"
-    },
-    imageAlign: {
-        "position": "sticky",
-        "top": 5,
+        marginBottom: "-0.1rem",
+        color: "lightgray"
     },
     inImageAlign: {
         width: "150%",
@@ -346,7 +343,7 @@ export default function AddJobAdvert() {
                             </form>
                         </Grid>
                         <Grid item xs={5}>
-                            <div className={classes.imageAlign}>
+                            <div>
                                 <img className={classes.inImageAlign} src={process.env.PUBLIC_URL + '/assets/job-ad.svg'} alt="job-ad" />
                             </div>
                         </Grid>
