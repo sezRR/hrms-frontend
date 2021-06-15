@@ -1,6 +1,6 @@
 import './App.css';
 import Navi from './layouts/Navi';
-// import Dashboard from './layouts/Dashboard';
+import Dashboard from './layouts/Dashboard';
 import { makeStyles } from '@material-ui/core/styles';
 import { createMuiTheme, MuiThemeProvider, Container } from '@material-ui/core';
 import Home from './pages/Home';
@@ -9,6 +9,7 @@ const useStyles = makeStyles({
   appBackground: {
     backgroundColor: "#f9f7f7",
     backgroundImage: "linear-gradient(to left top, #12001e, #150728, #150e32, #14133d, #101849, #0f194d, #0f1951, #0e1a55, #151652, #1b124e, #1f0d4a, #230746)",
+    height: 1080
   },
 });
 
@@ -19,14 +20,17 @@ const theme = createMuiTheme({
     },
     secondary:{
       main: "#000e5c"
-    }
+    },
+    text:{
+      primary: "#c2c2c2"
+    },
   },
   typography:{
     h1:{
       fontFamily: "Fredoka One",
       fontWeight: "bold",
       fontSize: 48,
-      color: "#ffffff"
+      color: "#e3e3e3"
     },
     h6:{
       fontFamily: "Nunito",
@@ -37,6 +41,9 @@ const theme = createMuiTheme({
     MuiIconButton: {
       colorPrimary:{
         color : "#7981b0",
+      },
+      colorSecondary: {
+        color: "#e3e3e3"
       }
     },
     MuiToolbar:{
@@ -49,10 +56,20 @@ const theme = createMuiTheme({
         paddingLeft: 0,
         paddingRight: 0
       }
+    },
+    MuiDivider:{
+      root:{
+        backgroundColor: "#14163d"
+      }
+    },
+    MuiPaper: {
+      root:{
+        backgroundColor: "#272a6b"
+      }
     }
   },
   props:{
-    
+
   }
 })
 
@@ -63,7 +80,7 @@ export default function App() {
     <MuiThemeProvider theme={theme}>
       <div className={classes.appBackground}>
         <Container fixed>
-      <Navi />
+          <Navi />
           <Home />
           {/* <Dashboard/> */}
         </Container>

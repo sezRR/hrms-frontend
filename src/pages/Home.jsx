@@ -89,7 +89,7 @@ export default function Home() {
                     <div className={classes.header}>
                         <Typography variant="h1">FIND YOUR DREAM <span className={classes.headerEmphasis}>JOB</span></Typography>
                     </div>
-                        <Typography className={classes.headerParagraph} color="primary">
+                        <Typography className={classes.headerParagraph} color="textPrimary">
                             Millions of jobless had a job with employer users of HRMS! Begin your job carrier with HRMS.
                         </Typography>
                     <br />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -14,6 +14,28 @@ import QuestionMarkIcon from "@material-ui/icons/HelpOutline"
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box"
 import { makeStyles } from '@material-ui/core/styles';
+import MenuIcon from '@material-ui/icons/Menu';
+import { Drawer, MenuItem, Link } from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom'
+
+const headersData = [
+    {
+        label: "Listings",
+        href: "/listings",
+    },
+    {
+        label: "Mentors",
+        href: "/mentors",
+    },
+    {
+        label: "My Account",
+        href: "/account",
+    },
+    {
+        label: "Log Out",
+        href: "/logout",
+    },
+];
 
 const useStyles = makeStyles(() => ({
     "root": {
@@ -37,7 +59,6 @@ const useStyles = makeStyles(() => ({
     "input": {
         "marginLeft": ".5rem",
         "flex": "1px",
-        "color": "#c4c4c4",
     },
 
     "iconButton": {
@@ -46,17 +67,23 @@ const useStyles = makeStyles(() => ({
 
     "divider": {
         "height": "28px",
-        // "margin": "4px",
-        "backgroundColor": "#14163d"
     },
 
     "root2": {
-        "background-color": "#272a6b",
         "padding": "2px 4px",
         "display": "flex",
         "width": "550px",
         "height": "30px",
-        // "marginLeft": "0.5rem",
+        "@media (max-width: 1200px)": {
+            "width": "450px",
+        },
+        "@media (max-width: 990px)": {
+            "width": "350px",
+        },
+        "@media (max-width: 899px)": {
+            "marginLeft": "auto",
+            "width": "190px",
+        },
     },
 
     "clickable": {
@@ -69,10 +96,19 @@ const useStyles = makeStyles(() => ({
         "marginLeft": "-1.5rem"
     },
 
-    buttonGroupCss:{
+    "buttonGroupCss": {
         "paddingLeft": "12px",
         "paddingRight": "12px",
         "marginRight": "-1.5rem"
+    },
+
+    "menuIconMobile": {
+        "marginRight": 0,
+        "marginLeft": "auto"
+    },
+
+    "drawerContainer": {
+        "padding": "20px 30px",
     },
 }));
 
@@ -105,51 +141,148 @@ export default function Navi() {
         prevScrollpos = currentScrollPos;
     }
 
-    return (
-        <Box component="div" className={classes.root}>
-            <AppBar className={classes.appBar} color={navbarCurrentBackground} id="navbar" elevation={3} position="absolute">
-                <Toolbar>
-                    <Toolbar className={classes.marginHeader}>
+    const [state, setState] = useState({
+        mobileView: false,
+        drawerOpen: false
+    });
+
+    const { mobileView, drawerOpen } = state;
+
+    useEffect(() => {
+        const setResponsiveness = () => {
+            return window.innerWidth < 900
+                ? setState((prevState) => ({ ...prevState, mobileView: true }))
+                : setState((prevState) => ({ ...prevState, mobileView: false }));
+        };
+
+        setResponsiveness();
+        window.addEventListener("resize", () => setResponsiveness());
+
+        return () => {
+            window.removeEventListener("resize", () => setResponsiveness());
+        }
+    }, []);
+
+    const displayMobile = () => {
+        const handleDrawerOpen = () =>
+            setState((prevState) => ({ ...prevState, drawerOpen: true }));
+
+        const handleDrawerClose = () =>
+            setState((prevState) => ({ ...prevState, drawerOpen: false }));
+
+        return (
+            <Toolbar>
+                <Box component="span" className={classes.marginForIcons}><WorkIcon color="primary" /></Box>
+                <Typography variant="h6">
+                    HRMS
+                </Typography>
+                <Paper component="form" className={classes.root2} elevation={0} variant="outlined">
+                    <InputBase
+                        className={classes.input}
+                        color="primary"
+                        placeholder="Search for a Job"
+                    />
+                    <IconButton
+                        color="primary"
+                        type="submit"
+                        className={classes.iconButton}
+                        aria-label="search"
+                    >
+                        <SearchIcon />
+                    </IconButton>
+                </Paper>
+                <IconButton
+                    {...{
+                        className: classes.menuIconMobile,
+                        color: "secondary",
+                        "aria-label": "menu",
+                        "aria-haspopup": "true",
+                        onClick: handleDrawerOpen,
+                    }}
+                >
+                    <MenuIcon />
+                </IconButton>
+                <Drawer
+                    {...{
+                        anchor: "right",
+                        open: drawerOpen,
+                        onClose: handleDrawerClose,
+                    }}
+                >
+                    <div className={classes.drawerContainer}>{getDrawerChoices()}</div>
+                </Drawer>
+            </Toolbar>
+        );
+    };
+
+    const getDrawerChoices = () => {
+        return headersData.map(({ label, href }) => {
+            return (
+                <Link
+                    {...{
+                        component: RouterLink,
+                        to: href,
+                        color: "textPrimary",
+                        style: { textDecoration: "none" },
+                        key: label,
+                    }}
+                >
+                    <MenuItem>{label}</MenuItem>
+                </Link>
+            );
+        });
+    };
+
+    const displayDesktop = () => {
+        return (
+            <Toolbar>
+                <Toolbar className={classes.marginHeader}>
 
                     <Box component="span" className={classes.marginForIcons}><WorkIcon color="primary" /></Box>
                     <Typography variant="h6">
                         HRMS
                     </Typography>
 
-                    </Toolbar>
-
-                    <Paper component="form" className={classes.root2} elevation={0} variant="outlined">
-                        <InputBase
-                            className={classes.input}
-                            placeholder="Search for a Job"
-                        />
-                        <IconButton
-                            color="primary"
-                            type="submit"
-                            className={classes.iconButton}
-                            aria-label="search"
-                        >
-                            <SearchIcon />
-                        </IconButton>
-                        <Divider className={classes.divider} orientation="vertical" />
-                        <IconButton
-                            color="primary"
-                            className={classes.iconButton}
-                            aria-label="directions"
-                        >
-                            <QuestionMarkIcon />
-                        </IconButton>
-                    </Paper>
-
-                    <Toolbar className={classes.buttonGroupCss}>
-                        <Button color="primary"><Box component="span" className={classes.marginForIcons}><FontAwesomeIcon icon={faSignInAlt} /></Box>Sign In</Button>
-                        <Box component="span" className={classes.marginForRightButtons}></Box>
-                        <Button color="primary"><Box component="span" className={classes.marginForIcons}><FontAwesomeIcon icon={faUserPlus} /></Box>Sign Up</Button>
-                    </Toolbar>
-
                 </Toolbar>
 
+                <Paper component="form" className={classes.root2} elevation={0} variant="outlined">
+                    <InputBase
+                        className={classes.input}
+                        color="primary"
+                        placeholder="Search for a Job"
+                    />
+                    <IconButton
+                        color="primary"
+                        type="submit"
+                        className={classes.iconButton}
+                        aria-label="search"
+                    >
+                        <SearchIcon />
+                    </IconButton>
+                    <Divider className={classes.divider} orientation="vertical" />
+                    <IconButton
+                        color="primary"
+                        className={classes.iconButton}
+                        aria-label="directions"
+                    >
+                        <QuestionMarkIcon />
+                    </IconButton>
+                </Paper>
 
+                <Toolbar className={classes.buttonGroupCss}>
+                    <Button color="primary"><Box component="span" className={classes.marginForIcons}><FontAwesomeIcon icon={faSignInAlt} /></Box>Sign In</Button>
+                    <Box component="span" className={classes.marginForRightButtons}></Box>
+                    <Button color="primary"><Box component="span" className={classes.marginForIcons}><FontAwesomeIcon icon={faUserPlus} /></Box>Sign Up</Button>
+                </Toolbar>
+
+            </Toolbar>
+        );
+    };
+
+    return (
+        <Box component="div" className={classes.root}>
+            <AppBar className={classes.appBar} color={navbarCurrentBackground} id="navbar" elevation={3} position="absolute">
+                {mobileView ? displayMobile() : displayDesktop()}
             </AppBar>
         </Box>
 
