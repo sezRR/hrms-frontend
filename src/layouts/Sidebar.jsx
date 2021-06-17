@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: "flex",
         "position": "sticky",
-        "top": "4.0675rem",
+        "top": "4rem",
     },
 
     paper: {
@@ -20,8 +20,6 @@ const useStyles = makeStyles((theme) => ({
     },
 
     menuItem: {
-        backgroundColor: "#f9f7f7",
-        color: "black",
         "borderRadius": "0px 0px 25px 25px"
     },
 
@@ -52,10 +50,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Sidebar() {
     const classes = useStyles();
-
+    
     return (
-        <div className={classes.root}>
-            <Paper className={classes.paper} elevation={0} variant="outlined">
+        <div className={classes.root} id="sidebar">
+            <Paper variant="elevation" className={classes.paper} elevation={5}>
                 <MenuList className={classes.menuItem}>
                     <MenuItem className={classes.addButton}><span className={classes.marginForIcons}><AddCircleIcon /></span>Add</MenuItem>
                     <MenuItem className={classes.updateButton}><span className={classes.marginForIcons}><EditIcon /></span>Update</MenuItem>

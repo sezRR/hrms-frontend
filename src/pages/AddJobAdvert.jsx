@@ -19,36 +19,12 @@ import 'date-fns';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import * as Yup from "yup";
 
 const useStyles = makeStyles({
-    sliderHeader: {
-        width: "100%",
-        color: "lightgray",
-    },
-    contentCenter: {
-        display: "flex",
-        justifyContent: "center"
-    },
     advertDescriptionCustomization: {
         width: "100%"
     },
     openPositionCustomization: {
-        width: "100%"
-    },
-    sliderCustomization: {
-        width: "100%"
-    },
-    citiesAutoCompleteCustomization: {
-        width: "100%"
-    },
-    jobPositionsAutoCompleteCustomization: {
-        width: "100%"
-    },
-    workingPlacesAutoCompleteCustomization: {
-        width: "100%"
-    },
-    workingTimesAutoCompleteCustomization: {
         width: "100%"
     },
     submitCustomization: {
@@ -65,27 +41,23 @@ const useStyles = makeStyles({
         height: "6%",
         marginRight: "1rem",
         marginBottom: "-0.1rem",
-        color: "lightgray"
     },
     inImageAlign: {
         width: "150%",
         height: "150%",
         marginRight: "auto",
-        marginLeft: "5rem",
+        marginLeft: "2.15rem",
     },
     customGrid: {
         maxWidth: "30rem",
-        justifyContent: "center"
+        justifyContent: "center",
+        marginLeft: "2.15rem"
     },
 });
 
 function valueText(value) {
     return `${value}`
 }
-
-const addJobAdvertValidationSchema = Yup.object().shape({
-    firstName: Yup.string().required("testss")
-});
 
 const validate = (values) => {
     let errors = {};
@@ -152,7 +124,6 @@ export default function AddJobAdvert() {
         getOptionLabel: (option) => option.position
     }
 
-
     const workingPlacesDefaultProps = {
         options: workingPlaces,
         getOptionLabel: (option) => option.workingPlace
@@ -185,10 +156,8 @@ export default function AddJobAdvert() {
     return (<Formik
         initialValues={initialValues}
         validate={validate}
-        validator={addJobAdvertValidationSchema}
         onSubmit={submitForm}
     >
-
 
         {(formik) => {
             const {
@@ -219,12 +188,10 @@ export default function AddJobAdvert() {
             };
 
             return (
-
                 <div className={classes.contentCenter}>
-
-                    <Grid container>
+                    <Grid container className={classes.customFirstGrid}>
                         <Grid item xs={7} className={classes.customGrid}>
-                            <h1><AddCircleIcon className={classes.customizeIcon} />Job Advert</h1>
+                            <Typography variant="h4" className={classes.customizeTitle}><AddCircleIcon className={classes.customizeIcon} />Job Advert</Typography>
 
 
                             <form onSubmit={handleSubmit}>
@@ -238,7 +205,7 @@ export default function AddJobAdvert() {
                                 <br />
                                 <br />
 
-                                <Typography id="salarySlider" className={classes.sliderHeader} gutterBottom>
+                                <Typography id="salarySlider" color="textSecondary" gutterBottom>
                                     Min - Max Salary (x1000)
                                 </Typography>
                                 <Slider
@@ -246,6 +213,7 @@ export default function AddJobAdvert() {
                                     id="salaries"
                                     name="salaries"
                                     value={value}
+                                    color="primary"
                                     min={0}
                                     max={30}
                                     step={2}

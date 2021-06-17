@@ -15,17 +15,6 @@ const useStyles = makeStyles({
         marginRight:"0",
         overflowX: "unset",
         width: "90%",
-    },
-
-    tableHeader: {
-        backgroundColor: "#ebebeb",
-        color: "black",
-        fontWeight:"bold"
-    },
-
-    tableBody: {
-        backgroundColor: "#f9f7f7",
-        color: "white",
     }
 });
 
@@ -43,16 +32,15 @@ export default function JobPositionList() {
             <TableContainer className={classes.tableContainer} component={Paper} variant="outlined">
                 <Table aria-label="simple table">
                     <TableHead>
-                        <TableRow className={classes.tableHeader}>
-                            <TableCell className={classes.tableHeader} align="center">Id</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">Position</TableCell>
+                        <TableRow>
+                            <TableCell align="center">Id</TableCell>
+                            <TableCell align="center">Position</TableCell>
                         </TableRow>
                     </TableHead>
-
-                    <TableBody className={classes.tableBody}>
+                    <TableBody>
                         {jobPositions.map((jobPosition) => (
                             <TableRow key={jobPosition.id}>
-                                <TableCell component="th" scope="row" align="center">{jobPosition.id}</TableCell>
+                                <TableCell align="center">{jobPosition.id}</TableCell>
                                 <TableCell align="center">{jobPosition.position}</TableCell>
                             </TableRow>
                         ))}

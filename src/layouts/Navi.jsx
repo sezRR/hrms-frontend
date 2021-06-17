@@ -42,6 +42,7 @@ const useStyles = makeStyles(() => ({
         "position": "sticky",
         "top": 0,
         "transition": "top 0.3s",
+        "zIndex": 1
     },
 
     "menuButton": {
@@ -93,13 +94,11 @@ const useStyles = makeStyles(() => ({
     "marginHeader": {
         "paddingLeft": "12px",
         "paddingRight": "12px",
-        "marginLeft": "-1.5rem"
     },
 
     "buttonGroupCss": {
         "paddingLeft": "12px",
         "paddingRight": "12px",
-        "marginRight": "-1.5rem"
     },
 
     "menuIconMobile": {
@@ -115,6 +114,21 @@ const useStyles = makeStyles(() => ({
 export default function Navi() {
     const classes = useStyles();
     const [navbarCurrentBackground, setNavbarCurrentBackground] = useState("transparent")
+
+    const navHeader = () => {
+        return (
+            <RouterLink to="/" style={{ textDecoration: "none" }}>
+                <Toolbar className={classes.marginHeader}>
+
+                    <Box component="span" className={classes.marginForIcons}><WorkIcon color="primary" /></Box>
+                    <Typography variant="h6">
+                        HRMS
+                    </Typography>
+
+                </Toolbar>
+            </RouterLink>
+        )
+    }
 
     var prevScrollpos = window.pageYOffset;
     window.onscroll = function () {
@@ -172,10 +186,9 @@ export default function Navi() {
 
         return (
             <Toolbar>
-                <Box component="span" className={classes.marginForIcons}><WorkIcon color="primary" /></Box>
-                <Typography variant="h6">
-                    HRMS
-                </Typography>
+
+                {navHeader()}
+
                 <Paper component="form" className={classes.root2} elevation={0} variant="outlined">
                     <InputBase
                         className={classes.input}
@@ -236,23 +249,15 @@ export default function Navi() {
     const displayDesktop = () => {
         return (
             <Toolbar>
-                <Toolbar className={classes.marginHeader}>
 
-                    <Box component="span" className={classes.marginForIcons}><WorkIcon color="primary" /></Box>
-                    <Typography variant="h6">
-                        HRMS
-                    </Typography>
-
-                </Toolbar>
+                {navHeader()}
 
                 <Paper component="form" className={classes.root2} elevation={0} variant="outlined">
                     <InputBase
                         className={classes.input}
-                        color="primary"
                         placeholder="Search for a Job"
                     />
                     <IconButton
-                        color="primary"
                         type="submit"
                         className={classes.iconButton}
                         aria-label="search"
@@ -261,7 +266,6 @@ export default function Navi() {
                     </IconButton>
                     <Divider className={classes.divider} orientation="vertical" />
                     <IconButton
-                        color="primary"
                         className={classes.iconButton}
                         aria-label="directions"
                     >
@@ -281,7 +285,7 @@ export default function Navi() {
 
     return (
         <Box component="div" className={classes.root}>
-            <AppBar className={classes.appBar} color={navbarCurrentBackground} id="navbar" elevation={3} position="absolute">
+            <AppBar className={classes.appBar} color={navbarCurrentBackground} id="navbar" elevation={3} position="relative">
                 {mobileView ? displayMobile() : displayDesktop()}
             </AppBar>
         </Box>

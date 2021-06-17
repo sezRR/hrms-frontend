@@ -1,9 +1,11 @@
-import './App.css';
 import Navi from './layouts/Navi';
 import Dashboard from './layouts/Dashboard';
 import { makeStyles } from '@material-ui/core/styles';
-import { createMuiTheme, MuiThemeProvider, Container } from '@material-ui/core';
+import { MuiThemeProvider, Container } from '@material-ui/core';
 import Home from './pages/Home';
+import AddJobAdvert from './pages/AddJobAdvert';
+import { defaultTheme } from './themes/defaultTheme';
+import { Route } from 'react-router-dom';
 
 const useStyles = makeStyles({
   appBackground: {
@@ -13,76 +15,17 @@ const useStyles = makeStyles({
   },
 });
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#f5f5f5",
-    },
-    secondary:{
-      main: "#000e5c"
-    },
-    text:{
-      primary: "#c2c2c2"
-    },
-  },
-  typography:{
-    h1:{
-      fontFamily: "Fredoka One",
-      fontWeight: "bold",
-      fontSize: 48,
-      color: "#e3e3e3"
-    },
-    h6:{
-      fontFamily: "Nunito",
-      color: "#e3e3e3",
-    },
-  },
-  overrides:{
-    MuiIconButton: {
-      colorPrimary:{
-        color : "#7981b0",
-      },
-      colorSecondary: {
-        color: "#e3e3e3"
-      }
-    },
-    MuiToolbar:{
-      root:{
-        justifyContent:"space-between",
-      }
-    },
-    MuiContainer:{
-      root:{
-        paddingLeft: 0,
-        paddingRight: 0
-      }
-    },
-    MuiDivider:{
-      root:{
-        backgroundColor: "#14163d"
-      }
-    },
-    MuiPaper: {
-      root:{
-        backgroundColor: "#272a6b"
-      }
-    }
-  },
-  props:{
-
-  }
-})
-
 export default function App() {
   const classes = useStyles();
 
   return (
-    <MuiThemeProvider theme={theme}>
-      <div className={classes.appBackground}>
-        <Container fixed>
+    <MuiThemeProvider theme={defaultTheme} >
+      <div className={classes.appBackground} >
+        <Container fixed >
           <Navi />
-          <Home />
-          {/* <Dashboard/> */}
+          <Route exact path="/" component={Home}/>
+          <Route path="/dashboard" component={Dashboard}/>
+          <Route exact path="/add/jobadvert" component={AddJobAdvert}/>
         </Container>
       </div>
     </MuiThemeProvider>

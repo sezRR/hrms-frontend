@@ -15,17 +15,6 @@ const useStyles = makeStyles({
         marginRight:"0",
         overflowX: "unset",
         width: "90%",
-    },
-
-    tableHeader: {
-        backgroundColor: "#ebebeb",
-        color: "black",
-        fontWeight:"bold"
-    },
-
-    tableBody: {
-        backgroundColor: "#f9f7f7",
-        color: "white",
     }
 });
 
@@ -43,21 +32,21 @@ export default function CandidateUserList() {
             <TableContainer className={classes.tableContainer} component={Paper} variant="outlined">
                 <Table aria-label="simple table">
                     <TableHead>
-                        <TableRow className={classes.tableHeader}>
-                            <TableCell className={classes.tableHeader} align="center">Id</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">Email</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">Password</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">First Name</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">Last Name</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">Identity Number</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">Date Of Birth</TableCell>
+                        <TableRow>
+                            <TableCell variant="head" align="center">Id</TableCell>
+                            <TableCell variant="head" align="center">Email</TableCell>
+                            <TableCell variant="head" align="center">Password</TableCell>
+                            <TableCell variant="head" align="center">First Name</TableCell>
+                            <TableCell variant="head" align="center">Last Name</TableCell>
+                            <TableCell variant="head" align="center">Identity Number</TableCell>
+                            <TableCell variant="head" align="center">Date Of Birth</TableCell>
                         </TableRow>
                     </TableHead>
 
-                    <TableBody className={classes.tableBody}>
+                    <TableBody>
                         {candidateUsers.map((candidateUser) => (
                             <TableRow key={candidateUser.id}>
-                                <TableCell component="th" scope="row" align="center">{candidateUser.id}</TableCell>
+                                <TableCell align="center">{candidateUser.id}</TableCell>
                                 <TableCell align="center">{candidateUser.email}</TableCell>
                                 <TableCell align="center">{candidateUser.password}</TableCell>
                                 <TableCell align="center">{candidateUser.firstName}</TableCell>

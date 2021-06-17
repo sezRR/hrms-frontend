@@ -15,17 +15,6 @@ const useStyles = makeStyles({
         marginRight:"0",
         overflowX: "unset",
         width: "90%",
-    },
-
-    tableHeader: {
-        backgroundColor: "#ebebeb",
-        color: "black",
-        fontWeight:"bold"
-    },
-
-    tableBody: {
-        backgroundColor: "#f9f7f7",
-        color: "white",
     }
 });
 
@@ -43,20 +32,20 @@ export default function EmployerUserList() {
             <TableContainer className={classes.tableContainer} component={Paper} variant="outlined">
                 <Table aria-label="simple table">
                     <TableHead>
-                        <TableRow className={classes.tableHeader}>
-                            <TableCell className={classes.tableHeader} align="center">Id</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">Email</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">Password</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">Company Name</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">Web Address</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">Phone Number</TableCell>
+                        <TableRow>
+                            <TableCell align="center">Id</TableCell>
+                            <TableCell align="center">Email</TableCell>
+                            <TableCell align="center">Password</TableCell>
+                            <TableCell align="center">Company Name</TableCell>
+                            <TableCell align="center">Web Address</TableCell>
+                            <TableCell align="center">Phone Number</TableCell>
                         </TableRow>
                     </TableHead>
 
                     <TableBody className={classes.tableBody}>
                         {employerUsers.map((employerUser) => (
                             <TableRow key={employerUser.id}>
-                                <TableCell component="th" scope="row" align="center">{employerUser.id}</TableCell>
+                                <TableCell align="center">{employerUser.id}</TableCell>
                                 <TableCell align="center">{employerUser.email}</TableCell>
                                 <TableCell align="center">{employerUser.password}</TableCell>
                                 <TableCell align="center">{employerUser.companyName}</TableCell>

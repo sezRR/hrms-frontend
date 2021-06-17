@@ -15,17 +15,6 @@ const useStyles = makeStyles({
         marginRight:"0",
         overflowX: "unset",
         width: "90%",
-    },
-
-    tableHeader: {
-        backgroundColor: "#ebebeb",
-        color: "black",
-        fontWeight:"bold"
-    },
-
-    tableBody: {
-        backgroundColor: "#f9f7f7",
-        color: "white",
     }
 });
 
@@ -43,16 +32,16 @@ export default function CityList() {
             <TableContainer className={classes.tableContainer} component={Paper} variant="outlined">
                 <Table aria-label="simple table">
                     <TableHead>
-                        <TableRow className={classes.tableHeader}>
-                            <TableCell className={classes.tableHeader} align="center">Id</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">City Name</TableCell>
+                        <TableRow>
+                            <TableCell variant="head" align="center">Id</TableCell>
+                            <TableCell variant="head" align="center">City Name</TableCell>
                         </TableRow>
                     </TableHead>
 
-                    <TableBody className={classes.tableBody}>
+                    <TableBody>
                         {cities.map((city) => (
                             <TableRow key={city.id}>
-                                <TableCell component="th" scope="row" align="center">{city.id}</TableCell>
+                                <TableCell align="center">{city.id}</TableCell>
                                 <TableCell align="center">{city.cityName}</TableCell>
                             </TableRow>
                         ))}
