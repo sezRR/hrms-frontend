@@ -1,9 +1,6 @@
 import React from 'react'
-import { fade, makeStyles } from '@material-ui/core/styles';
-import { Box, Grid } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Navi from '../layouts/Navi';
+import { fade, makeStyles, Box, Grid, Button, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
     svg: {
@@ -115,7 +112,7 @@ export default function Home() {
 
 
                     <br />
-                    <Button className={classes.exploreButton} variant="outlined" color="primary">
+                    <Button className={classes.exploreButton} variant="outlined" color="primary" component={Link} to="/jobadverts">
                         EXPLORE
                     </Button>
                 </Grid>

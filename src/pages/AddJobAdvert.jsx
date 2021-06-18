@@ -1,24 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
 import { Formik } from 'formik'
-import { Button, TextField } from '@material-ui/core'
-import Grid from '@material-ui/core/Grid';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-    MuiPickersUtilsProvider,
-    KeyboardDatePicker,
-} from '@material-ui/pickers';
-import SendIcon from '@material-ui/icons/Send';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import { Button, TextField, makeStyles, Grid, Typography, Slider } from '@material-ui/core'
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import { Send as SendIcon, AddCircle as AddCircleIcon } from '@material-ui/icons/Send';
+
 import CityService from '../services/cityService'
 import WorkingPlaceService from '../services/workingPlaceService';
 import WorkingTimeService from '../services/workingTimeService';
 import JobPositionService from '../services/jobPositionService';
 import JobAdvertService from '../services/jobAdvertService';
+
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import DateFnsUtils from '@date-io/date-fns';
 import 'date-fns';
-import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const useStyles = makeStyles({
     advertDescriptionCustomization: {
@@ -181,7 +175,6 @@ export default function AddJobAdvert() {
                 //         newValue[1] = null
                 //     }
                 // } // TO DO: set null işlemini submit bölümünde yap
-                console.log(newValue)
 
                 setFieldValue("minSalary", newValue[0])
                 setFieldValue("maxSalary", newValue[1])
@@ -316,7 +309,6 @@ export default function AddJobAdvert() {
                             </div>
                         </Grid>
                     </Grid>
-
                 </div >
             );
         }}

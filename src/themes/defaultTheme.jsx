@@ -1,16 +1,21 @@
 import { createMuiTheme } from '@material-ui/core'
 
+const duplicateTextPrimary = "#e3e3e3"
+const duplicateTextSecondary = "#c7d5ff"
+const duplicatePrimaryMain = "#f5f5f5"
+const duplicateIconButtonColorPrimary = "#7981b0"
+
 export const defaultTheme = createMuiTheme({
     palette: {
       primary: {
-        main: "#f5f5f5",
+        main: duplicatePrimaryMain,
       },
       secondary: {
         main: "#000e5c",
       },
       text: {
-        primary: "#e3e3e3",
-        secondary: "#c7d5ff"
+        primary: duplicateTextPrimary,
+        secondary: duplicateTextSecondary
       },
     },
     typography: {
@@ -18,29 +23,29 @@ export const defaultTheme = createMuiTheme({
         fontFamily: "Fredoka One",
         fontWeight: "bold",
         fontSize: 48,
-        color: "#e3e3e3"
+        color: duplicateTextPrimary
       },
       h4: {
         fontFamily: "Nunito",
-        color: "#e3e3e3",
+        color: duplicateTextPrimary,
         marginTop: "4.5rem",
         marginBottom: "1rem"
       },
       h6: {
         fontFamily: "Nunito",
-        color: "#e3e3e3",
+        color: duplicateTextPrimary,
       },
     },
     overrides: {
       MuiIconButton: {
         root: {
-          color: "#7981b0"
+          color: duplicateIconButtonColorPrimary
         },
         colorPrimary: {
-          color: "#7981b0",
+          color: duplicateIconButtonColorPrimary,
         },
         colorSecondary: {
-          color: "#e3e3e3"
+          color: duplicateTextPrimary
         }
       },
       MuiToolbar: {
@@ -67,29 +72,29 @@ export const defaultTheme = createMuiTheme({
           // backgroundColor: "#000e5c",
           // backgroundColor: "transparent",
           backgroundColor: "#21245c",
-          color: "#e3e3e3"
+          color: duplicateTextPrimary
         }
       },
       MuiFormLabel: {
         root: {
-          color: "#c7d5ff",
+          color: duplicateTextSecondary,
         }
       },
       MuiInput: {
         underline: {
           '&:before': {
-            borderBottomColor: "#c7d5ff"
+            borderBottomColor: duplicateTextSecondary
           }
         }
       },
       MuiButton: {
         contained: {
-          backgroundColor: "#c7d5ff"
+          backgroundColor: duplicateTextSecondary
         }
       },
       MuiSlider: {
         colorPrimary: {
-          color: "#c7d5ff"
+          color: duplicateTextSecondary
         }
       },
       MuiTableBody:{
@@ -99,7 +104,7 @@ export const defaultTheme = createMuiTheme({
       },
       MuiTableCell:{
         head:{
-          color:"#f5f5f5",
+          color:duplicatePrimaryMain,
           fontWeight:"bold"
         },
         root:{

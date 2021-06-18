@@ -1,8 +1,14 @@
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const { REACT_APP_API_URL } = process.env
 
 export default class JobAdvertService {
+
+    getJobAdverts(){
+        return axios.get(REACT_APP_API_URL + "/jobadverts/getbyactiveis")
+    }
+
     addJobAdvert(jobAdvert){
         axios.post(REACT_APP_API_URL + "/jobadverts/add", { 
             employerId: jobAdvert.employerId,
@@ -11,14 +17,14 @@ export default class JobAdvertService {
             workingPlaceId: jobAdvert.workingPlaceId,
             workingTimeId: jobAdvert.workingTimeId,
             advertDescription: jobAdvert.advertDescription,
-            minSalary: jobAdvert.minSalary,
-            maxSalary: jobAdvert.maxSalary,
+            minSalary: jobAdvert.minSalary * 1000,
+            maxSalary: jobAdvert.maxSalary * 1000,
             openPosition: jobAdvert.openPosition,
             createdDate: jobAdvert.createdDate,
             deadline: jobAdvert.deadline
          })
-            .then(function (response) { 
-                console.log(response.data.message)
+            .then(function () { 
+                toast.success("Your job advert added by successfully")
             })
     }
 }
