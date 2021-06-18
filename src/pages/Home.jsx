@@ -1,6 +1,7 @@
 import React from 'react'
 import { fade, makeStyles, Box, Grid, Button, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom'
+import ProminentJobAdverts from '../components/ProminentJobAdverts';
 
 const useStyles = makeStyles((theme) => ({
     svg: {
@@ -15,15 +16,11 @@ const useStyles = makeStyles((theme) => ({
     root: {
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        height: 575,
+        // height: 575,
     },
 
     header: {
         marginTop: "7.5rem",
-    },
-
-    headerEmphasis: {
-        color: "#4997fc",
     },
 
     exploreButton: {
@@ -80,17 +77,19 @@ export default function Home() {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            {/* <Navi/> */}
             <Grid container>
                 <Grid item xs={6}>
                     <div className={classes.header}>
-                        <Typography variant="h1">FIND YOUR DREAM <span className={classes.headerEmphasis}>JOB</span></Typography>
+                        <Typography variant="h1">FIND YOUR DREAM <Box color="info.main" component="span">JOB</Box></Typography>
                     </div>
+                    <br />
                         <Typography className={classes.headerParagraph} color="textPrimary">
-                            Millions of jobless had a job with employer users of HRMS! Begin your job carrier with HRMS.
+                            Millions of jobless had a job with employer users of HRMS! Begin your job carrier with HRMS today.
                         </Typography>
+                        
                     <br />
                     <br />
+
                     {/* <div className={classes.noMarginLeft}>
                     <Toolbar>
                     <div classes={{test:classes.search,test2:classes.noMarginLeft}}>
@@ -110,7 +109,6 @@ export default function Home() {
                     </Toolbar>
                     </div> */}
 
-
                     <br />
                     <Button className={classes.exploreButton} variant="outlined" color="primary" component={Link} to="/jobadverts">
                         EXPLORE
@@ -121,7 +119,10 @@ export default function Home() {
                         <img className={classes.inSvg} src={process.env.PUBLIC_URL + '/assets/job.svg'} alt="Solidarity" />
                     </Box>
                 </Grid>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" preserveAspectRatio="none" viewBox="0 0 1680 40" style={{bottom: "-1px", marginTop:"-1.25rem"}}><path d="M0 40h1680V30S1340 0 840 0 0 30 0 30z" fill="#fff"></path></svg>
+
             </Grid>
+            <ProminentJobAdverts/>
 
         </div>
     )

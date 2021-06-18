@@ -9,6 +9,10 @@ export default class JobAdvertService {
         return axios.get(REACT_APP_API_URL + "/jobadverts/getbyactiveis")
     }
 
+    getProminentJobAdverts(numberOfProminent){
+        return axios.get(REACT_APP_API_URL + "/jobadverts/getbyactiveforprominent?numberOfProminent="+numberOfProminent)
+    }
+
     addJobAdvert(jobAdvert){
         axios.post(REACT_APP_API_URL + "/jobadverts/add", { 
             employerId: jobAdvert.employerId,

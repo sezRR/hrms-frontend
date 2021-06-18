@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Formik } from 'formik'
 import { Button, TextField, makeStyles, Grid, Typography, Slider } from '@material-ui/core'
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import { Send as SendIcon, AddCircle as AddCircleIcon } from '@material-ui/icons/Send';
+import { Send as SendIcon, AddCircle as AddCircleIcon } from '@material-ui/icons';
 
 import CityService from '../services/cityService'
 import WorkingPlaceService from '../services/workingPlaceService';

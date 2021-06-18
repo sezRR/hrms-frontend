@@ -3,7 +3,7 @@ import { Event as EventIcon } from '@material-ui/icons';
 import { Grid, Card, CardActions, CardContent, makeStyles, Button, Typography } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBriefcase, faHandPointRight } from '@fortawesome/free-solid-svg-icons'
-import JobAdvertService from '../services/jobAdvertService';
+import JobAdvertService from '../services/jobAdvertService'
 
 const useStyles = makeStyles({
     root: {
@@ -32,26 +32,31 @@ const useStyles = makeStyles({
         marginRight: ".5rem",
     },
     rootDiv: {
-        marginTop: "3rem"
+        marginTop: "3rem",
+    },
+    header: {
+        marginBottom: "6rem"
     }
 });
 
-export default function JobAdvertList() {
+export default function ProminentJobAdverts() {
 
-    const [jobAdverts, setJobAdverts] = useState([])
-    const classes = useStyles();
+    const [prominentJobAdverts, setProminentJobAdverts] = useState([])
 
     useEffect(() => {
         let jobAdvertService = new JobAdvertService()
-        jobAdvertService.getJobAdverts().then(result => setJobAdverts(result.data.data))
+        jobAdvertService.getProminentJobAdverts(3).then(result => setProminentJobAdverts(result.data.data))
     }, [])
+
+    const classes = useStyles()
 
     return (
         <div className={classes.rootDiv}>
-            <Grid container spacing={9}>
-                {jobAdverts.map((jobAdvert) => (
+            <Typography variant="h2" align="center" color="secondary" className={classes.header}>PROMINENT JOB ADVERTS</Typography>
+            <Grid container spacing={5}>
+                {prominentJobAdverts.map((jobAdvert) => (
                     <Grid key={jobAdvert.id} item xs={4}>
-                        <Card key={jobAdvert.id} className={classes.root} variant="elevation" elevation={5}>
+                        <Card key={jobAdvert.id} className={classes.root} variant="elevation" elevation={10}>
                             <CardContent>
                                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                                     JOB ADVERT ( <EventIcon className={classes.customIcon} /> Created At: {jobAdvert.createdDate})

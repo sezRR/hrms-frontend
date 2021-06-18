@@ -4,6 +4,7 @@ const duplicateTextPrimary = "#e3e3e3"
 const duplicateTextSecondary = "#c7d5ff"
 const duplicatePrimaryMain = "#f5f5f5"
 const duplicateIconButtonColorPrimary = "#7981b0"
+const duplicateMarkedColor = "#4997fc"
 
 export const defaultTheme = createMuiTheme({
     palette: {
@@ -15,15 +16,23 @@ export const defaultTheme = createMuiTheme({
       },
       text: {
         primary: duplicateTextPrimary,
-        secondary: duplicateTextSecondary
+        secondary: duplicateTextSecondary,
       },
+      info:{
+        main: duplicateMarkedColor
+      }
     },
     typography: {
       h1: {
         fontFamily: "Fredoka One",
         fontWeight: "bold",
         fontSize: 48,
-        color: duplicateTextPrimary
+        color: duplicateTextPrimary,
+      },
+      h2:{
+        fontFamily: "Fredoka One",
+        fontWeight: "bold",
+        fontSize: 44,
       },
       h4: {
         fontFamily: "Nunito",
@@ -109,6 +118,12 @@ export const defaultTheme = createMuiTheme({
         },
         root:{
           borderBottom: "1px solid #252863"
+        }
+      },
+      MuiCardActions:{
+        root:{
+          backgroundColor:"#1c1f4f",
+          borderTop: "1px solid #141414",
         }
       }
     }

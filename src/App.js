@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   appBackground: {
     backgroundColor: "#f9f7f7",
     backgroundImage: "linear-gradient(to left top, #12001e, #150728, #150e32, #14133d, #101849, #0f194d, #0f1951, #0e1a55, #151652, #1b124e, #1f0d4a, #230746)",
-    // height: 1080
+    height: 635
   },
 });
 
