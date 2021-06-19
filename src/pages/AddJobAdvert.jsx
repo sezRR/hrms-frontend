@@ -3,6 +3,7 @@ import { Formik } from 'formik'
 import { Button, TextField, makeStyles, Grid, Typography, Slider } from '@material-ui/core'
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { Send as SendIcon, AddCircle as AddCircleIcon } from '@material-ui/icons';
+import * as Yup from 'yup';
 
 import CityService from '../services/cityService'
 import WorkingPlaceService from '../services/workingPlaceService';
@@ -52,36 +53,6 @@ const useStyles = makeStyles({
 function valueText(value) {
     return `${value}`
 }
-
-const validate = (values) => {
-    let errors = {};
-
-    if (!values.advertDescription) {
-        errors.advertDescription = "Advert description is required";
-    }
-
-    if (!values.openPosition) {
-        errors.openPosition = "Open position is required";
-    }
-
-    if (!values.cityId) {
-        errors.cityId = "City name is required";
-    }
-
-    if (!values.jobPositionId) {
-        errors.jobPositionId = "Job position is required";
-    }
-
-    if (!values.workingPlaceId) {
-        errors.workingPlaceId = "Working place is required";
-    }
-
-    if (!values.workingTimeId) {
-        errors.workingTimeId = "Working time is required";
-    }
-
-    return errors;
-};
 
 export default function AddJobAdvert() {
 
@@ -147,9 +118,18 @@ export default function AddJobAdvert() {
         jobAdvertService.addJobAdvert(values)
     }
 
+    const validate = Yup.object({
+        advertDescription: Yup.string().required("Advert description is required"),
+        openPosition: Yup.number().positive("Open position is required"),
+        cityId: Yup.number().min(1, "City name is required"),
+        jobPositionId: Yup.number().min(1, "Job position is required"),
+        workingPlaceId: Yup.number().min(1, "Working place is required"),
+        workingTimeId: Yup.number().min(1, "Working time is required")
+    })
+
     return (<Formik
         initialValues={initialValues}
-        validate={validate}
+        validationSchema={validate}
         onSubmit={submitForm}
     >
 
@@ -188,11 +168,11 @@ export default function AddJobAdvert() {
 
 
                             <form onSubmit={handleSubmit}>
-                                <TextField multiline className={classes.advertDescriptionCustomization} id="advertDescription" name="advertDescription" onChange={handleChange} label="Advert Description *" placeholder="Looking for..." error={values.advertDescription === "" && touched.advertDescription} helperText={touched.advertDescription ? errors.advertDescription : null} />
+                                <TextField multiline className={classes.advertDescriptionCustomization} id="advertDescription" name="advertDescription" onChange={handleChange} label="Advert Description *" placeholder="Looking for..." error={errors.advertDescription && touched.advertDescription} helperText={touched.advertDescription ? errors.advertDescription : null} />
                                 <br />
                                 <br />
 
-                                <TextField className={classes.openPositionCustomization} id="openPosition" name="openPosition" type="number" onChange={handleChange} label="Open Position *" placeholder="1000" error={(values.openPosition === "" || values.openPosition === 0) && touched.openPosition} helperText={touched.openPosition ? errors.openPosition : null} />
+                                <TextField className={classes.openPositionCustomization} id="openPosition" name="openPosition" type="number" onChange={handleChange} label="Open Position *" placeholder="1000" error={errors.openPosition && touched.openPosition} helperText={touched.openPosition ? errors.openPosition : null} />
 
                                 <br />
                                 <br />
@@ -224,7 +204,7 @@ export default function AddJobAdvert() {
                                     name="cityId"
                                     blurOnSelect
                                     renderInput={(params) => (
-                                        <TextField {...params} label="City Name *" margin="normal" placeholder="Istanbul" error={(values.cityId === "" || values.cityId === 0) && touched.cityId} helperText={touched.cityId ? errors.cityId : null} />
+                                        <TextField {...params} label="City Name *" margin="normal" placeholder="Istanbul" error={errors.cityId && touched.cityId} helperText={touched.cityId ? errors.cityId : null} />
                                     )}
                                     onChange={(_, value) => value === null ? setFieldValue("cityId", 0) : setFieldValue("cityId", value.id)}
                                 />
@@ -237,7 +217,7 @@ export default function AddJobAdvert() {
                                     name="jobPositionId"
                                     blurOnSelect
                                     renderInput={(params) => (
-                                        <TextField {...params} label="Job Position *" margin="normal" placeholder="Software Developer" error={(values.jobPositionId === "" || values.jobPositionId === 0) && touched.jobPositionId} helperText={touched.jobPositionId ? errors.jobPositionId : null} />
+                                        <TextField {...params} label="Job Position *" margin="normal" placeholder="Software Developer" error={errors.jobPositionId && touched.jobPositionId} helperText={touched.jobPositionId ? errors.jobPositionId : null} />
                                     )}
                                     onChange={(_, value) => value === null ? setFieldValue("jobPositionId", 0) : setFieldValue("jobPositionId", value.id)}
                                 />
@@ -250,7 +230,7 @@ export default function AddJobAdvert() {
                                     name="workingPlaceId"
                                     blurOnSelect
                                     renderInput={(params) => (
-                                        <TextField {...params} label="Working Place *" margin="normal" placeholder="At workplace" error={(values.workingPlaceId === "" || values.workingPlaceId === 0) && touched.workingPlaceId} helperText={touched.workingPlaceId ? errors.workingPlaceId : null} />
+                                        <TextField {...params} label="Working Place *" margin="normal" placeholder="At workplace" error={errors.workingPlaceId && touched.workingPlaceId} helperText={touched.workingPlaceId ? errors.workingPlaceId : null} />
                                     )}
                                     onChange={(_, value) => value === null ? setFieldValue("workingPlaceId", 0) : setFieldValue("workingPlaceId", value.id)}
                                 />
@@ -263,7 +243,7 @@ export default function AddJobAdvert() {
                                     name="workingTimeId"
                                     blurOnSelect
                                     renderInput={(params) => (
-                                        <TextField {...params} label="Working Time *" margin="normal" placeholder="Full time" error={(values.workingTimeId === "" || values.workingTimeId === 0) && touched.workingTimeId} helperText={touched.workingTimeId ? errors.workingTimeId : null} />
+                                        <TextField {...params} label="Working Time *" margin="normal" placeholder="Full time" error={errors.workingTimeId && touched.workingTimeId} helperText={touched.workingTimeId ? errors.workingTimeId : null} />
                                     )}
                                     onChange={(_, value) => value === null ? setFieldValue("workingTimeId", 0) : setFieldValue("workingTimeId", value.id)}
                                 />
