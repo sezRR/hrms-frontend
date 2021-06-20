@@ -1,15 +1,6 @@
 import React, { useState,useEffect } from 'react'
-import { makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import CandidateUserService from '../services/candidateUserService';
-
-const useStyles = makeStyles({
-    tableContainer: {
-        marginLeft:"auto",
-        marginRight:"0",
-        overflowX: "unset",
-        width: "90%",
-    }
-});
 
 export default function CandidateUserList() {
     const [candidateUsers, setCandidateUsers] = useState([])
@@ -19,10 +10,9 @@ export default function CandidateUserList() {
         candidateUserService.getCandidateUsers().then(result => setCandidateUsers(result.data.data))
     }, [])
 
-    const classes = useStyles();
     return (
         <div>
-            <TableContainer className={classes.tableContainer} component={Paper} variant="outlined">
+            <TableContainer component={Paper} variant="outlined">
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>

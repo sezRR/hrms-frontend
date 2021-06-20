@@ -1,15 +1,6 @@
 import React, { useState,useEffect } from 'react'
-import { makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import EmployerUserService from '../services/employerUserService';
-
-const useStyles = makeStyles({
-    tableContainer: {
-        marginLeft:"auto",
-        marginRight:"0",
-        overflowX: "unset",
-        width: "90%",
-    }
-});
 
 export default function EmployerUserList() {
     const [employerUsers, setEmployerUsers] = useState([])
@@ -19,10 +10,9 @@ export default function EmployerUserList() {
         employerUserService.getEmployerUsers().then(result => setEmployerUsers(result.data.data))
     }, [])
 
-    const classes = useStyles();
     return (
         <div>
-            <TableContainer className={classes.tableContainer} component={Paper} variant="outlined">
+            <TableContainer component={Paper} variant="outlined">
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
@@ -35,7 +25,7 @@ export default function EmployerUserList() {
                         </TableRow>
                     </TableHead>
 
-                    <TableBody className={classes.tableBody}>
+                    <TableBody>
                         {employerUsers.map((employerUser) => (
                             <TableRow key={employerUser.id}>
                                 <TableCell align="center">{employerUser.id}</TableCell>

@@ -1,15 +1,6 @@
 import React, { useState,useEffect } from 'react'
-import { makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import CityService from '../services/cityService';
-
-const useStyles = makeStyles({
-    tableContainer: {
-        marginLeft:"auto",
-        marginRight:"0",
-        overflowX: "unset",
-        width: "90%",
-    }
-});
 
 export default function CityList() {
     const [cities, setCities] = useState([])
@@ -19,10 +10,9 @@ export default function CityList() {
         cityService.getCities().then(result => setCities(result.data.data))
     }, [])
 
-    const classes = useStyles();
     return (
         <div>
-            <TableContainer className={classes.tableContainer} component={Paper} variant="outlined">
+            <TableContainer component={Paper} variant="outlined">
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>

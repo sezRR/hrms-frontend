@@ -106,6 +106,13 @@ export const defaultTheme = createMuiTheme({
           color: duplicateTextSecondary
         }
       },
+      MuiTableContainer:{
+        root:{
+          width: "90%",
+          marginLeft:"auto",
+          marginRight:"0",
+        }
+      },
       MuiTableBody:{
         root:{
           backgroundColor: "#393c70"
