@@ -4,6 +4,7 @@ import { Button, TextField, makeStyles, Grid, Typography, Slider } from '@materi
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { Send as SendIcon, AddCircle as AddCircleIcon } from '@material-ui/icons';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify'
 
 import CityService from '../services/cityService'
 import WorkingPlaceService from '../services/workingPlaceService';
@@ -14,6 +15,7 @@ import JobAdvertService from '../services/jobAdvertService';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import DateFnsUtils from '@date-io/date-fns';
 import 'date-fns';
+import JobAdvertStaffVerifyService from '../services/jobAdvertStaffVerifyService';
 
 const useStyles = makeStyles({
     advertDescriptionCustomization: {
@@ -115,7 +117,14 @@ export default function AddJobAdvert() {
 
     const submitForm = (values) => {
         let jobAdvertService = new JobAdvertService()
-        jobAdvertService.addJobAdvert(values)
+        jobAdvertService.addJobAdvert(values).then(result => addJobAdvertStaffVerify(result.data.data.id))
+    }
+
+    const addJobAdvertStaffVerify = (jobAdvertId) => {
+        let jobAdvertStaffVerifyService = new JobAdvertStaffVerifyService()
+        jobAdvertStaffVerifyService.addJobAdvertStaffVerify(jobAdvertId)
+
+        toast.success("Your job advert added by successfully")
     }
 
     const validate = Yup.object({

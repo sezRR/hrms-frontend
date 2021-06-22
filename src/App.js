@@ -7,6 +7,7 @@ import { defaultTheme } from './themes/defaultTheme';
 import { Route } from 'react-router-dom';
 import JobAdvertList from './pages/JobAdvertList';
 import { ToastContainer } from 'react-toastify';
+import ConfirmDashboard from './layouts/ConfirmDashboard';
 
 const useStyles = makeStyles({
   appBackground: {
@@ -22,13 +23,14 @@ export default function App() {
   return (
     <MuiThemeProvider theme={defaultTheme} >
       <div className={classes.appBackground} >
-        <ToastContainer position="bottom-right"/>
+        <ToastContainer position="bottom-right" />
         <Container fixed >
           <Navi />
-          <Route exact path="/" component={Home}/>
-          <Route path="/dashboard" component={Dashboard}/>
-          <Route exact path="/add/jobadvert" component={AddJobAdvert}/>
-          <Route exact path="/jobadverts" component={JobAdvertList}/>
+          <Route exact path="/" component={Home} />
+          <Route path="/dashboard" component={Dashboard} />
+          <Route exact path="/add/jobadvert" component={AddJobAdvert} />
+          <Route exact path="/jobadverts" component={JobAdvertList} />
+          <Route path="/confirm-dashboard" component={ConfirmDashboard} />
         </Container>
       </div>
     </MuiThemeProvider>
