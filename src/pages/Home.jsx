@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { fade, makeStyles, Box, Grid, Button, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom'
 import ProminentJobAdverts from '../components/ProminentJobAdverts';
@@ -70,11 +70,17 @@ const useStyles = makeStyles((theme) => ({
     headerParagraph:{
         fontSize:"18px",
         textAlign: "left",
-    }
+    },
 }));
+
 
 export default function Home() {
     const classes = useStyles();
+
+    useEffect(() => {
+        document.getElementById("rootdiv").style.height = "635px";
+    }, [])
+
     return (
         <div className={classes.root}>
             <Grid container>

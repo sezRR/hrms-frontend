@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import WorkIcon from '@material-ui/icons/Work';
-import { faUserPlus, faSignInAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import InputBase from "@material-ui/core/InputBase";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
@@ -17,6 +14,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Drawer, MenuItem, Link } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom'
+import { useHistory } from 'react-router'
+import SignedIn from './SignedIn';
+import SignedOut from './SignedOut';
 
 const headersData = [
     {
@@ -246,6 +246,18 @@ export default function Navi() {
         });
     };
 
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const history = useHistory()
+
+    function handleSignOut() {
+        setIsAuthenticated(false)
+        history.push("/")
+    }
+
+    function handleSignIn() {
+        setIsAuthenticated(true)
+    }
+
     const displayDesktop = () => {
         return (
             <Toolbar>
@@ -274,9 +286,7 @@ export default function Navi() {
                 </Paper>
 
                 <Toolbar className={classes.buttonGroupCss}>
-                    <Button color="primary"><Box component="span" className={classes.marginForIcons}><FontAwesomeIcon icon={faSignInAlt} /></Box>Sign In</Button>
-                    <Box component="span" className={classes.marginForRightButtons}></Box>
-                    <Button color="primary"><Box component="span" className={classes.marginForIcons}><FontAwesomeIcon icon={faUserPlus} /></Box>Sign Up</Button>
+                        {isAuthenticated ? <SignedIn signOut={handleSignOut} /> : <SignedOut signIn={handleSignIn} />}
                 </Toolbar>
 
             </Toolbar>

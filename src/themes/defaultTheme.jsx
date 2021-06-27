@@ -43,7 +43,7 @@ export const defaultTheme = createMuiTheme({
       h6: {
         fontFamily: "Nunito",
         color: duplicateTextPrimary,
-      },
+      }
     },
     overrides: {
       MuiIconButton: {
@@ -78,8 +78,6 @@ export const defaultTheme = createMuiTheme({
           backgroundColor: "#272a6b"
         },     
         elevation5:{
-          // backgroundColor: "#000e5c",
-          // backgroundColor: "transparent",
           backgroundColor: "#21245c",
           color: duplicateTextPrimary
         }

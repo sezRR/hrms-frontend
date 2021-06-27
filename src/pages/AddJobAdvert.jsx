@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Formik } from 'formik'
-import { Button, TextField, makeStyles, Grid, Typography, Slider } from '@material-ui/core'
+import { Formik, Form } from 'formik'
+import { Button, makeStyles, Grid, Typography, Slider } from '@material-ui/core'
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { Send as SendIcon, AddCircle as AddCircleIcon } from '@material-ui/icons';
 import * as Yup from 'yup';
@@ -12,10 +12,11 @@ import WorkingTimeService from '../services/workingTimeService';
 import JobPositionService from '../services/jobPositionService';
 import JobAdvertService from '../services/jobAdvertService';
 
-import Autocomplete from '@material-ui/lab/Autocomplete';
 import DateFnsUtils from '@date-io/date-fns';
 import 'date-fns';
 import JobAdvertStaffVerifyService from '../services/jobAdvertStaffVerifyService';
+import HRMSTextField from '../utilities/customFormControls/HRMSTextField';
+import HRMSAutoComplete from '../utilities/customFormControls/HRMSAutoComplete';
 
 const useStyles = makeStyles({
     advertDescriptionCustomization: {
@@ -49,7 +50,7 @@ const useStyles = makeStyles({
         maxWidth: "30rem",
         justifyContent: "center",
         marginLeft: "2.15rem"
-    },
+    }
 });
 
 function valueText(value) {
@@ -79,6 +80,8 @@ export default function AddJobAdvert() {
 
         let workingTimeService = new WorkingTimeService()
         workingTimeService.getWorkingTimes().then(result => setWorkingTimes(result.data.data))
+
+        document.getElementById("rootdiv").style.height = "925px";
     }, [])
 
     const citiesDefaultProps = {
@@ -145,25 +148,12 @@ export default function AddJobAdvert() {
         {(formik) => {
             const {
                 values,
-                handleChange,
                 handleSubmit,
-                errors,
-                touched,
                 setFieldValue,
             } = formik;
 
             const handleSliderChange = (event, newValue) => {
                 setValue(newValue);
-
-                // if(newValue[0] === 0 || newValue[1] === 0){
-                //     if (newValue[0] === 0) {
-                //         newValue[0] = null
-                //     }
-
-                //     if (newValue[1] === 0) {
-                //         newValue[1] = null
-                //     }
-                // } // TO DO: set null işlemini submit bölümünde yap
 
                 setFieldValue("minSalary", newValue[0])
                 setFieldValue("maxSalary", newValue[1])
@@ -176,12 +166,12 @@ export default function AddJobAdvert() {
                             <Typography variant="h4" className={classes.customizeTitle}><AddCircleIcon className={classes.customizeIcon} />Job Advert</Typography>
 
 
-                            <form onSubmit={handleSubmit}>
-                                <TextField multiline className={classes.advertDescriptionCustomization} id="advertDescription" name="advertDescription" onChange={handleChange} label="Advert Description *" placeholder="Looking for..." error={errors.advertDescription && touched.advertDescription} helperText={touched.advertDescription ? errors.advertDescription : null} />
+                            <Form onSubmit={handleSubmit}>
+                                <HRMSTextField multiline className={classes.advertDescriptionCustomization} id="advertDescription" name="advertDescription" label="Advert Description *" placeholder="Looking for..." />
                                 <br />
                                 <br />
 
-                                <TextField className={classes.openPositionCustomization} id="openPosition" name="openPosition" type="number" onChange={handleChange} label="Open Position *" placeholder="1000" error={errors.openPosition && touched.openPosition} helperText={touched.openPosition ? errors.openPosition : null} />
+                                <HRMSTextField className={classes.openPositionCustomization} id="openPosition" name="openPosition" type="number" label="Open Position *" placeholder="1000" />
 
                                 <br />
                                 <br />
@@ -205,56 +195,44 @@ export default function AddJobAdvert() {
                                     getAriaValueText={valueText}
                                 />
 
-
-                                <Autocomplete
+                                <HRMSAutoComplete
                                     {...citiesDefaultProps}
                                     className={classes.citiesAutoCompleteCustomization}
                                     id="cityId"
                                     name="cityId"
-                                    blurOnSelect
-                                    renderInput={(params) => (
-                                        <TextField {...params} label="City Name *" margin="normal" placeholder="Istanbul" error={errors.cityId && touched.cityId} helperText={touched.cityId ? errors.cityId : null} />
-                                    )}
                                     onChange={(_, value) => value === null ? setFieldValue("cityId", 0) : setFieldValue("cityId", value.id)}
+                                    label="City Name *"
+                                    placeholder="Istanbul"
                                 />
 
-
-                                <Autocomplete
+                                <HRMSAutoComplete
                                     {...jobPositionsDefaultProps}
                                     className={classes.jobPositionsAutoCompleteCustomization}
                                     id="jobPositionId"
                                     name="jobPositionId"
-                                    blurOnSelect
-                                    renderInput={(params) => (
-                                        <TextField {...params} label="Job Position *" margin="normal" placeholder="Software Developer" error={errors.jobPositionId && touched.jobPositionId} helperText={touched.jobPositionId ? errors.jobPositionId : null} />
-                                    )}
                                     onChange={(_, value) => value === null ? setFieldValue("jobPositionId", 0) : setFieldValue("jobPositionId", value.id)}
+                                    label="Job Position *"
+                                    placeholder="Software Developer"
                                 />
 
-
-                                <Autocomplete
+                                <HRMSAutoComplete
                                     {...workingPlacesDefaultProps}
                                     className={classes.workingPlacesAutoCompleteCustomization}
                                     id="workingPlaceId"
                                     name="workingPlaceId"
-                                    blurOnSelect
-                                    renderInput={(params) => (
-                                        <TextField {...params} label="Working Place *" margin="normal" placeholder="At workplace" error={errors.workingPlaceId && touched.workingPlaceId} helperText={touched.workingPlaceId ? errors.workingPlaceId : null} />
-                                    )}
                                     onChange={(_, value) => value === null ? setFieldValue("workingPlaceId", 0) : setFieldValue("workingPlaceId", value.id)}
+                                    label="Working Place *"
+                                    placeholder="At workplace"
                                 />
 
-
-                                <Autocomplete
+                                <HRMSAutoComplete
                                     {...workingTimesDefaultProps}
                                     className={classes.workingTimesAutoCompleteCustomization}
                                     id="workingTimeId"
                                     name="workingTimeId"
-                                    blurOnSelect
-                                    renderInput={(params) => (
-                                        <TextField {...params} label="Working Time *" margin="normal" placeholder="Full time" error={errors.workingTimeId && touched.workingTimeId} helperText={touched.workingTimeId ? errors.workingTimeId : null} />
-                                    )}
                                     onChange={(_, value) => value === null ? setFieldValue("workingTimeId", 0) : setFieldValue("workingTimeId", value.id)}
+                                    label="Working Time *"
+                                    placeholder="Full time"
                                 />
 
                                 <Grid container>
@@ -290,7 +268,7 @@ export default function AddJobAdvert() {
                                 <br />
                                 <br />
                                 <br />
-                            </form>
+                            </Form>
                         </Grid>
                         <Grid item xs={5}>
                             <div>
