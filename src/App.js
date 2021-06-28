@@ -10,6 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import ConfirmDashboard from './layouts/ConfirmDashboard';
 import Footer from './layouts/Footer';
 import Favorites from './pages/Favorites';
+import UpdateStaffUserAccountDetails from './pages/UpdateStaffUserAccountDetails';
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/favorites" component={Favorites} />
           <Route path="/dashboard" component={Dashboard} />
           <Route exact path="/add/jobadvert" component={AddJobAdvert} />
+          <Route exact path="/update/staffUser" component={UpdateStaffUserAccountDetails} />
           <Route exact path="/jobadverts" component={JobAdvertList} />
           <Route path="/confirm-dashboard" component={ConfirmDashboard} />
           <Footer/>

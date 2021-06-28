@@ -4,7 +4,7 @@ import { Grid, Card, CardActions, CardContent, makeStyles, Button, Typography, I
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBriefcase, faHandPointRight } from '@fortawesome/free-solid-svg-icons'
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+// import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteJobAdvertService from '../services/favoriteJobAdvertService';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToFavorites, removeFromFavorites } from '../store/actions/favoriteJobAdvertActions';
