@@ -34,6 +34,12 @@ export const defaultTheme = createMuiTheme({
       fontWeight: "bold",
       fontSize: 44,
     },
+    h3:{
+      fontFamily: "Nunito",
+      marginTop: "4.5rem",
+      marginBottom: "1rem",
+      color: "#a1aced"
+    },
     h4: {
       fontFamily: "Nunito",
       color: duplicateTextPrimary,
@@ -97,7 +103,7 @@ export const defaultTheme = createMuiTheme({
     MuiButton: {
       contained: {
         backgroundColor: duplicateTextSecondary,
-        '&:hover':{
+        '&:hover': {
           backgroundColor: "#85a3ff",
         }
       },
@@ -145,6 +151,11 @@ export const defaultTheme = createMuiTheme({
       notchedOutline: {
         borderColor: duplicateIconButtonColorPrimary,
       }
+    },
+    MuiSvgIcon: {
+      root: {
+        color: duplicateIconButtonColorPrimary
+      },
     }
   }
 })
