@@ -26,8 +26,8 @@ export default function App() {
           <Route exact path="/update/staffUser" component={UpdateStaffUserAccountDetails} />
           <Route exact path="/jobadverts" component={JobAdvertList} />
           <Route path="/confirm-dashboard" component={ConfirmDashboard} />
-          <Footer/>
         </Container>
+        <Footer/>
       </div>
     </MuiThemeProvider>
   );

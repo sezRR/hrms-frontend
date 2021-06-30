@@ -8,6 +8,25 @@ export default class JobAdvertService {
         return axios.get(REACT_APP_API_URL + "/jobadverts/getbyactiveis")
     }
 
+    getJobAdvertsWithPagination(cities, workingTimes, workingPlaces){
+
+        let params = `pageNo=1&pageSize=10`
+
+        if(cities !== 0){
+            params += `&cities=${cities}`
+        }
+
+        if(workingTimes !== 0) {
+            params += `&workingTimes=${workingTimes}`
+        }
+
+        if(workingPlaces !== 0){
+            params += `&workingPlaces=${workingPlaces}`
+        }
+
+        return axios.get(REACT_APP_API_URL + `/jobadverts/getbyactiveiswithpagination?${params}`)
+    }
+
     getProminentJobAdverts(numberOfProminent){
         return axios.get(REACT_APP_API_URL + "/jobadverts/getbyactiveforprominent?numberOfProminent="+numberOfProminent)
     }

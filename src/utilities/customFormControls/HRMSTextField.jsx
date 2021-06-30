@@ -8,6 +8,6 @@ export default function HRMSTextField({...props}) {
     const [field, meta] = useField(props)
 
     return (
-        <TextField {...field} {...props} error={meta.touched && !!meta.error} helperText={meta.touched ? meta.error : null} />
+        <TextField {...field} {...props} variant={props.variant} error={meta.touched && !!meta.error} helperText={meta.touched ? meta.error : null} />
     )
 }

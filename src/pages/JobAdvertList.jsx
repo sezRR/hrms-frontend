@@ -9,12 +9,13 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteJobAdvertService from '../services/favoriteJobAdvertService';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToFavorites } from '../store/actions/favoriteJobAdvertActions';
+import JobAdvertFilter from '../components/JobAdvertFilter';
 
 const useStyles = makeStyles({
     root: {
-        width: "90%",
+        marginRight: "auto",
         marginLeft: "auto",
-        marginRight: "auto"
+        marginBottom: "3rem"
     },
     title: {
         fontSize: 14,
@@ -24,8 +25,6 @@ const useStyles = makeStyles({
     },
     customIcon: {
         verticalAlign: "middle",
-        width: "5.5%",
-        height: "5.5%"
     },
     customIcon2: {
         verticalAlign: "-2px",
@@ -37,11 +36,16 @@ const useStyles = makeStyles({
         marginRight: ".5rem",
     },
     rootDiv: {
-        marginTop: "3rem"
+        marginTop: "3rem",
     },
-    cardFooter:{
-        display:"flex",
+    cardFooter: {
+        display: "flex",
         justifyContent: "space-between"
+    },
+    grid: {
+        display: "flex",
+        flexWrap: "wrap",
+        height: "1%"
     }
 });
 
@@ -58,9 +62,7 @@ export default function JobAdvertList() {
         let favoriteJobAdvertService = new FavoriteJobAdvertService()
         favoriteJobAdvertService.getByCandidateId(1).then(result => dispatch(addToFavorites(result.data.data)))
 
-        // document.getElementById("rootdiv").style.height = `${window.innerHeight}px`;
-        document.getElementById("rootdiv").style.height = "1350px";
-
+        document.getElementById("rootdiv").style.height = "100%"
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -69,13 +71,20 @@ export default function JobAdvertList() {
     function addToFavorite(candidateUserId, jobAdvert) {
         let favoriteJobAdvertService = new FavoriteJobAdvertService()
         favoriteJobAdvertService.addFavorite(candidateUserId, jobAdvert).then(result => (result.data.success === true) ? dispatch(addToFavorites(result.data.data)) : null)
-    }    
+    }
+
+    function handleJobAdverts(newJobAdverts) {
+        setJobAdverts(newJobAdverts)
+    }
 
     return (
         <div id="jobAdvertListDiv" className={classes.rootDiv}>
-            <Grid container spacing={9}>
-                {jobAdverts.map((jobAdvert) => (
-                    <Grid key={jobAdvert.id} item xs={4}>
+            <Grid container spacing={3}>
+                <Grid item xs={2}>
+                    <JobAdvertFilter jobAdverts = {handleJobAdverts} />
+                </Grid>
+                <Grid className={classes.grid} item xs={10}>
+                    {jobAdverts.map((jobAdvert) => (
                         <Card key={jobAdvert.id} className={classes.root} variant="elevation" elevation={5}>
                             <CardContent>
                                 <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -95,14 +104,13 @@ export default function JobAdvertList() {
                             </CardContent>
                             <CardActions className={classes.cardFooter}>
                                 <Button size="medium"><FontAwesomeIcon icon={faHandPointRight} className={classes.customIcon3} /> Learn More</Button>
-                                {/* <IconButton onClick={() => addToFavorite(1, jobAdvert.id)}>{clicked ? <FavoriteIcon/> : <FavoriteBorderIcon/> }</IconButton> */}
-                                {/* <IconButton onClick={() => addToFavorite(1, jobAdvert)}>{ favoriteJobAdverts.includes(jobAdvert) ? <FavoriteIcon/> : <FavoriteBorderIcon/>}</IconButton> */}
-                                <IconButton onClick={() => addToFavorite(1, jobAdvert)}>{ favoriteJobAdverts.filter(j => j.jobAdvert.id === jobAdvert.id).length > 0 ? <FavoriteIcon/> : <FavoriteBorderIcon/>}</IconButton>
+                                <IconButton onClick={() => addToFavorite(1, jobAdvert)}>{favoriteJobAdverts.filter(j => j.jobAdvert.id === jobAdvert.id).length > 0 ? <FavoriteIcon /> : <FavoriteBorderIcon />}</IconButton>
                             </CardActions>
                         </Card>
-                    </Grid>
-                ))}
+                    ))}
+                </Grid>
             </Grid>
+
         </div>
     )
 }

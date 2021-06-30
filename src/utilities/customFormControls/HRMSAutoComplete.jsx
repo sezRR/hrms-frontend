@@ -11,7 +11,7 @@ export default function HRMSAutoComplete({ ...props }) {
         <Autocomplete
             {...props}
             renderInput={(params) => (
-                <HRMSTextField {...field} {...params} label={props.label} margin="normal" placeholder={props.placeholder} />
+                <HRMSTextField {...field} {...params} variant={props.variant} label={props.label} margin="normal" placeholder={props.placeholder} />
             )}
         />
     )
