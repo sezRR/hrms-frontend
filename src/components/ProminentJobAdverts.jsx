@@ -62,7 +62,7 @@ export default function ProminentJobAdverts() {
                                     JOB ADVERT ( <EventIcon className={classes.customIcon} /> Created At: {jobAdvert.createdDate})
                                 </Typography>
                                 <br />
-                                <Typography variant="h5" component="h2">
+                                <Typography style={{fontSize:24, fontFamily:"roboto"}} variant="h5" component="h2">
                                     <FontAwesomeIcon icon={faBriefcase} className={classes.customIcon2} /> {jobAdvert.employer.companyName}
                                 </Typography>
                                 <Typography className={classes.pos} color="textSecondary">

@@ -107,7 +107,7 @@ export default function Favorites() {
                                     JOB ADVERT ( <EventIcon className={classes.customIcon} /> Created At: {favoriteJobAdvert.jobAdvert.createdDate})
                                 </Typography>
                                 <br />
-                                <Typography variant="h5" component="h2">
+                                <Typography style={{fontSize:24, fontFamily:"roboto"}} variant="h5" component="h2">
                                     <FontAwesomeIcon icon={faBriefcase} className={classes.customIcon2} /> {favoriteJobAdvert.jobAdvert.employer.companyName}
                                 </Typography>
                                 <Typography className={classes.pos} color="textSecondary">

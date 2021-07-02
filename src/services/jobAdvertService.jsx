@@ -8,19 +8,23 @@ export default class JobAdvertService {
         return axios.get(REACT_APP_API_URL + "/jobadverts/getbyactiveis")
     }
 
-    getJobAdvertsWithPagination(cities, workingTimes, workingPlaces){
+    test(){
+        return axios.get(REACT_APP_API_URL + "/jobadverts/test")
+    }
 
-        let params = `pageNo=1&pageSize=10`
+    getJobAdvertsWithPagination(cities, workingTimes, workingPlaces, pageNo=1, pageSize=10){
 
-        if(cities !== 0){
+        let params = `pageNo=${pageNo}&pageSize=${pageSize}`
+
+        if(cities !== 0 && cities !== null){
             params += `&cities=${cities}`
         }
 
-        if(workingTimes !== 0) {
+        if(workingTimes !== 0 && workingTimes !== null) {
             params += `&workingTimes=${workingTimes}`
         }
 
-        if(workingPlaces !== 0){
+        if(workingPlaces !== 0 && workingPlaces !== null){
             params += `&workingPlaces=${workingPlaces}`
         }
 

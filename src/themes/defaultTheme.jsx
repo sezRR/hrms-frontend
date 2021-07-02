@@ -3,7 +3,7 @@ import { createMuiTheme } from '@material-ui/core'
 const duplicateTextPrimary = "#e3e3e3"
 const duplicateTextSecondary = "#c7d5ff"
 const duplicatePrimaryMain = "#f5f5f5"
-const duplicateIconButtonColorPrimary = "#7981b0"
+const duplicateIconButtonColorPrimary = "#b3b5ff"
 const duplicateMarkedColor = "#4997fc"
 
 export const defaultTheme = createMuiTheme({
@@ -45,6 +45,11 @@ export const defaultTheme = createMuiTheme({
       color: duplicateTextPrimary,
       marginTop: "4.5rem",
       marginBottom: "1rem"
+    },
+    h5:{
+      fontFamily: "Fredoka One",
+      color: duplicateTextSecondary,
+      fontSize:18
     },
     h6: {
       fontFamily: "Nunito",
