@@ -11,6 +11,7 @@ import ConfirmDashboard from './layouts/ConfirmDashboard';
 import Footer from './layouts/Footer';
 import Favorites from './pages/Favorites';
 import UpdateStaffUserAccountDetails from './pages/UpdateStaffUserAccountDetails';
+import CandidateUserResume from './pages/CandidateUserResume';
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
           <Route exact path="/update/staffUser" component={UpdateStaffUserAccountDetails} />
           <Route exact path="/jobadverts" component={JobAdvertList} />
           <Route path="/confirm-dashboard" component={ConfirmDashboard} />
+          <Route exact path="/resume" component={CandidateUserResume} />
         </Container>
         <Footer/>
       </div>

@@ -8,10 +8,6 @@ export default class JobAdvertService {
         return axios.get(REACT_APP_API_URL + "/jobadverts/getbyactiveis")
     }
 
-    test(){
-        return axios.get(REACT_APP_API_URL + "/jobadverts/test")
-    }
-
     getJobAdvertsWithPagination(cities, workingTimes, workingPlaces, pageNo=1, pageSize=10){
 
         let params = `pageNo=${pageNo}&pageSize=${pageSize}`
